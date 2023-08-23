@@ -1,5 +1,4 @@
 <script lang="ts">
-	// import supabase from '$lib/db';
 	import type { PageData } from './$types';
 	export let data: PageData;
 
@@ -11,11 +10,8 @@
 
 			const response = await fetch('/api/upload', {
 				method: 'POST',
-				headers: {
-					// 'content-type': 'application/json',
-					enctype: 'multipart/form-data'
-				},
-				body: formData
+				headers: { enctype: 'multipart/form-data' },
+				body: formData,
 			});
 		}
 	};

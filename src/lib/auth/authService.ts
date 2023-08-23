@@ -1,4 +1,3 @@
-import { ANON_KEY, PROJECT } from '$env/static/private'; // load from env
 import { SupabaseInstanse } from '$lib/supabase/supabaseService';
 import type { SupabaseClient } from '@supabase/supabase-js';
 

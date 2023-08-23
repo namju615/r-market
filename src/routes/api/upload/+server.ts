@@ -1,7 +1,8 @@
 import { json } from '@sveltejs/kit';
-import supabase from '$lib/db';
+import { SupabaseInstanse } from '$lib/supabase/supabaseService';
 
 export async function POST({ request }: { request: Request }) {
+	const supabase = SupabaseInstanse().getClient();
 	const now = new Date();
 	const timestamp = now.getTime();
 	const formData = await request.formData();
@@ -12,7 +13,7 @@ export async function POST({ request }: { request: Request }) {
 
 	if (data) {
 		const {
-			data: { publicUrl }
+			data: { publicUrl },
 		} = await supabase.storage.from('UPLOAD').getPublicUrl(data.path);
 		return json({ message: 'OK', filePath: publicUrl }, { status: 200 });
 	} else {
