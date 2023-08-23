@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import supabase from '$lib/db';
 
-export async function POST({ request }) {
+export async function POST({ request }: { request: Request }) {
 	const now = new Date();
 	const timestamp = now.getTime();
 	const formData = await request.formData();

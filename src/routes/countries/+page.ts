@@ -6,7 +6,7 @@ import { GraphQLClient } from 'graphql-request';
 
 import type { PageLoad } from './$types';
 
-export const load = (async ({ route }) => {
+export const load = (async ({ route }: { route: { id: string } }) => {
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 
 	await queryClient.prefetchQuery(useCountriesQuery.getKey(), useCountriesQuery.fetcher(gqlClient));
@@ -14,7 +14,7 @@ export const load = (async ({ route }) => {
 	if (route.id === '/countries') {
 		return {
 			title: 'countries',
-			dehydratedState: dehydrate(queryClient)
+			dehydratedState: dehydrate(queryClient),
 		};
 	}
 

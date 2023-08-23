@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 
 import type { PageLoad } from './$types';
 
-export const load = (async ({ route, data }) => {
+export const load = (async ({ route }: { route: { id: string } }) => {
 	if (route.id === '/upload') {
 		return {
 			title: 'upload'
