@@ -6,7 +6,6 @@
 	export let data: PageData;
 
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-
 	const countriesQueryResult = useCountryQuery(gqlClient);
 	const { country } = $countriesQueryResult.data!;
 </script>
