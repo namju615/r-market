@@ -1,0 +1,6 @@
+query Member {
+	member {
+		user_id
+		email
+	}
+}

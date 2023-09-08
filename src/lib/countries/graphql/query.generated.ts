@@ -1,8 +1,3 @@
-// import * as Types from '../../types';
-
-// import { GraphQLClient } from 'graphql-request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
-// import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import type * as Types from '$lib/types';
 
 import { GraphQLClient } from 'graphql-request';
@@ -15,13 +10,13 @@ function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,
 	query: string,
 	variables?: TVariables,
-	requestHeaders?: RequestInit['headers']
+	requestHeaders?: RequestInit['headers'],
 ) {
 	return async (): Promise<TData> =>
 		client.request({
 			document: query,
 			variables,
-			requestHeaders
+			requestHeaders,
 		});
 }
 export type ICountriesQueryVariables = Types.Exact<{ [key: string]: never }>;
@@ -53,17 +48,12 @@ export const useCountriesQuery = <TData = ICountriesQuery, TError = unknown>(
 	client: GraphQLClient,
 	variables?: ICountriesQueryVariables,
 	options?: UseQueryOptions<ICountriesQuery, TError, TData>,
-	headers?: RequestInit['headers']
+	headers?: RequestInit['headers'],
 ) =>
 	useQuery<ICountriesQuery, TError, TData>(
 		variables === undefined ? ['Countries'] : ['Countries', variables],
-		fetcher<ICountriesQuery, ICountriesQueryVariables>(
-			client,
-			CountriesDocument,
-			variables,
-			headers
-		),
-		options
+		fetcher<ICountriesQuery, ICountriesQueryVariables>(client, CountriesDocument, variables, headers),
+		options,
 	);
 
 useCountriesQuery.getKey = (variables?: ICountriesQueryVariables) =>
@@ -71,6 +61,5 @@ useCountriesQuery.getKey = (variables?: ICountriesQueryVariables) =>
 useCountriesQuery.fetcher = (
 	client: GraphQLClient,
 	variables?: ICountriesQueryVariables,
-	headers?: RequestInit['headers']
-) =>
-	fetcher<ICountriesQuery, ICountriesQueryVariables>(client, CountriesDocument, variables, headers);
+	headers?: RequestInit['headers'],
+) => fetcher<ICountriesQuery, ICountriesQueryVariables>(client, CountriesDocument, variables, headers);

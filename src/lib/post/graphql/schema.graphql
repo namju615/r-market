@@ -1,0 +1,16 @@
+type Post {
+	user_id: Int!
+	title: String!
+	hashtag: String!
+	price: Int!
+	status: String!
+	image_url: String!
+	create_date: String!
+	update_date: String!
+	post_id: Int!
+	view_count: Int!
+}
+
+type Query {
+	post: Post
+}

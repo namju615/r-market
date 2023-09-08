@@ -1,27 +1,21 @@
-// import * as Types from '../../types';
-
-// import { GraphQLClient } from 'graphql-request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
-// import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import type * as Types from '$lib/types';
+import type * as Types from '../../types';
 
 import { GraphQLClient } from 'graphql-request';
-import { useQuery } from '@sveltestack/svelte-query';
-
 import type { RequestInit } from 'graphql-request/dist/types.dom';
+import { useQuery } from '@sveltestack/svelte-query';
 import type { UseQueryOptions } from '@sveltestack/svelte-query';
 
 function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,
 	query: string,
 	variables?: TVariables,
-	requestHeaders?: RequestInit['headers']
+	requestHeaders?: RequestInit['headers'],
 ) {
 	return async (): Promise<TData> =>
 		client.request({
 			document: query,
 			variables,
-			requestHeaders
+			requestHeaders,
 		});
 }
 export type ICountryQueryVariables = Types.Exact<{ [key: string]: never }>;
@@ -39,26 +33,26 @@ export type ICountryQuery = {
 
 export const CountryDocument = /*#__PURE__*/ `
     query Country {
-		country {
-			id
-			name
-			iso2
-			iso3
-			local_name
-			continent
-		}
-	}
+  country {
+    id
+    name
+    iso2
+    iso3
+    local_name
+    continent
+  }
+}
     `;
 export const useCountryQuery = <TData = ICountryQuery, TError = unknown>(
 	client: GraphQLClient,
 	variables?: ICountryQueryVariables,
 	options?: UseQueryOptions<ICountryQuery, TError, TData>,
-	headers?: RequestInit['headers']
+	headers?: RequestInit['headers'],
 ) =>
 	useQuery<ICountryQuery, TError, TData>(
 		variables === undefined ? ['Country'] : ['Country', variables],
 		fetcher<ICountryQuery, ICountryQueryVariables>(client, CountryDocument, variables, headers),
-		options
+		options,
 	);
 
 useCountryQuery.getKey = (variables?: ICountryQueryVariables) =>
@@ -66,5 +60,5 @@ useCountryQuery.getKey = (variables?: ICountryQueryVariables) =>
 useCountryQuery.fetcher = (
 	client: GraphQLClient,
 	variables?: ICountryQueryVariables,
-	headers?: RequestInit['headers']
+	headers?: RequestInit['headers'],
 ) => fetcher<ICountryQuery, ICountryQueryVariables>(client, CountryDocument, variables, headers);

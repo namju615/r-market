@@ -1,0 +1,14 @@
+query Post {
+	post {
+		user_id
+		title
+		hashtag
+		price
+		status
+		image_url
+		create_date
+		update_date
+		post_id
+		view_count
+	}
+}

@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: [
-		'./src/**/*.{html,js,svelte,ts}',
-		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'],
 	plugins: [require('flowbite/plugin')],
 	darkMode: 'class',
 	theme: {
@@ -24,7 +21,7 @@ export default {
 					'Apple Color Emoji',
 					'Segoe UI Emoji',
 					'Segoe UI Symbol',
-					'Noto Color Emoji'
+					'Noto Color Emoji',
 				],
 				body: [
 					'Inter',
@@ -41,7 +38,7 @@ export default {
 					'Apple Color Emoji',
 					'Segoe UI Emoji',
 					'Segoe UI Symbol',
-					'Noto Color Emoji'
+					'Noto Color Emoji',
 				],
 				mono: [
 					'ui-monospace',
@@ -51,8 +48,8 @@ export default {
 					'Consolas',
 					'Liberation Mono',
 					'Courier New',
-					'monospace'
-				]
+					'monospace',
+				],
 			},
 			colors: {
 				// flowbite-svelte
@@ -66,9 +63,9 @@ export default {
 					600: '#EF562F',
 					700: '#EB4F27',
 					800: '#CC4522',
-					900: '#A5371B'
-				}
-			}
-		}
-	}
+					900: '#A5371B',
+				},
+			},
+		},
+	},
 };
