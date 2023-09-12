@@ -1,9 +1,7 @@
-import type * as Types from '../../types';
+import type * as Types from '$lib/types';
 
-import { GraphQLClient } from 'graphql-request';
-import type { RequestInit } from 'graphql-request/dist/types.dom';
-import { useQuery } from '@sveltestack/svelte-query';
-import type { UseQueryOptions } from '@sveltestack/svelte-query';
+import type { GraphQLClient } from 'graphql-request';
+import { useQuery, type UseQueryOptions } from '@sveltestack/svelte-query';
 
 function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,

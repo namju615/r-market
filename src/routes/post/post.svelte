@@ -17,7 +17,11 @@
 
 <div class="post-container">
 	<div class="image-container">
-		<img src={post?.image_url} alt="" />
+		{#if post?.image_url}
+			<img src={post?.image_url} alt="" />
+		{:else}
+			<div class="image-empty" />
+		{/if}
 		<button
 			class="favorite"
 			on:click={() => {
@@ -50,7 +54,8 @@
 	.image-container {
 		position: relative;
 
-		img {
+		img,
+		.image-empty {
 			width: 300px;
 			height: 300px;
 			object-fit: contain;

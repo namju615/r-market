@@ -22,6 +22,7 @@ generates:
       exposeFetcher: true
       withHooks: true
       fetcher: graphql-request
+      useTypeImports: true
 
 config:
   interfacePrefix: 'I'
@@ -32,3 +33,4 @@ config:
 
 hooks:
   afterOneFileWrite: 'prettier --plugin-search-dir . --write .'
+  afterAllFileWrite: 'node replaceImportPath.js'

@@ -5,6 +5,7 @@ import country from '$lib/country/db';
 import countries from '$lib/countries/db';
 import post from '$lib/post/db';
 import posts from '$lib/posts/db';
+import member from '$lib/member/db';
 
 import type { RequestEvent } from '@sveltejs/kit';
 
@@ -25,7 +26,7 @@ const yogaApp = createYoga<RequestEvent>({
 				country: () => country.data[0],
 				posts: () => posts.data,
 				post: () => post.data[0],
-				// member: () =>
+				member: () => member.data,
 			},
 		},
 	}),

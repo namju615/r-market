@@ -1,9 +1,7 @@
-import type * as Types from '../../types';
+import type * as Types from '$lib/types';
 
-import { GraphQLClient } from 'graphql-request';
-import type { RequestInit } from 'graphql-request/dist/types.dom';
-import { useQuery } from '@sveltestack/svelte-query';
-import type { UseQueryOptions } from '@sveltestack/svelte-query';
+import type { GraphQLClient } from 'graphql-request';
+import { useQuery, type UseQueryOptions } from '@sveltestack/svelte-query';
 
 function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,
@@ -32,12 +30,18 @@ export type IPostQuery = {
 		update_date: string;
 		post_id: number;
 		view_count: number;
+		member: { user_id: number; email: string; name: string };
 	} | null;
 };
 
 export const PostDocument = /*#__PURE__*/ `
     query Post {
   post {
+    member {
+      user_id
+      email
+      name
+    }
     user_id
     title
     hashtag

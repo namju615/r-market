@@ -1,5 +1,10 @@
 query Post {
 	post {
+		member {
+			user_id
+			email
+			name
+		}
 		user_id
 		title
 		hashtag

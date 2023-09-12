@@ -23,10 +23,17 @@ export interface ICountry {
 	name: Scalars['String']['output'];
 }
 
+export interface IMember {
+	email: Scalars['String']['output'];
+	name: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+}
+
 export interface IPost {
 	create_date: Scalars['String']['output'];
 	hashtag: Scalars['String']['output'];
 	image_url: Scalars['String']['output'];
+	member: IMember;
 	post_id: Scalars['Int']['output'];
 	price: Scalars['Int']['output'];
 	status: Scalars['String']['output'];
@@ -39,6 +46,7 @@ export interface IPost {
 export interface IQuery {
 	countries: Array<Maybe<ICountry>>;
 	country?: Maybe<ICountry>;
+	member: IMember;
 	post?: Maybe<IPost>;
 	posts: Array<Maybe<IPost>>;
 }

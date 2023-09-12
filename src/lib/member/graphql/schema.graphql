@@ -1,8 +1,9 @@
 type Member {
-	user_id: ID!
+	user_id: Int!
 	email: String!
+	name: String!
 }
 
 type Query {
-	member: Member
+	member: Member!
 }

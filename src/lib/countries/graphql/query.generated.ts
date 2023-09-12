@@ -1,10 +1,7 @@
 import type * as Types from '$lib/types';
 
-import { GraphQLClient } from 'graphql-request';
-import { useQuery } from '@sveltestack/svelte-query';
-
-import type { RequestInit } from 'graphql-request/dist/types.dom';
-import type { UseQueryOptions } from '@sveltestack/svelte-query';
+import type { GraphQLClient } from 'graphql-request';
+import { useQuery, type UseQueryOptions } from '@sveltestack/svelte-query';
 
 function fetcher<TData, TVariables extends { [key: string]: any }>(
 	client: GraphQLClient,
@@ -34,15 +31,15 @@ export type ICountriesQuery = {
 
 export const CountriesDocument = /*#__PURE__*/ `
     query Countries {
-      countries {
-        id
-        name
-        iso2
-        iso3
-        local_name
-        continent
-      }
-    }
+  countries {
+    id
+    name
+    iso2
+    iso3
+    local_name
+    continent
+  }
+}
     `;
 export const useCountriesQuery = <TData = ICountriesQuery, TError = unknown>(
 	client: GraphQLClient,

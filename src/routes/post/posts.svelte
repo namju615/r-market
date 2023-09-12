@@ -6,12 +6,12 @@
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 	const postsQueryResult = usePostsQuery(gqlClient);
 	const { posts } = $postsQueryResult.data!;
-
-	console.log(posts);
 </script>
 
 <div class="flex flex-wrap justify-center">
 	{#each posts as post}
 		<Post {post} />
+	{:else}
+		<p>데이터가 없습니다.</p>
 	{/each}
 </div>
