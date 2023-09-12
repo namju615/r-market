@@ -9,7 +9,7 @@ const getPagination = (page: number, size: number) => {
 
 	return { from, to };
 };
-const { from, to } = getPagination(0, 3);
+const { from, to } = getPagination(0, 14);
 
 let posts: PostgrestSingleResponse<any[]> | { data: [] } = { data: [] };
 

@@ -5,7 +5,7 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-	<main class="flex justify-center items-center w-full h-[100vh]">
+	<main class="flex justify-center items-center w-full">
 		<slot />
 	</main>
 </QueryClientProvider>

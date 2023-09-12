@@ -50,6 +50,7 @@
 <style lang="scss">
 	.post-container {
 		min-width: 300px;
+		max-width: 1200px;
 	}
 	.image-container {
 		position: relative;

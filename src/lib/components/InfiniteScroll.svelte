@@ -1,26 +1,26 @@
 <script lang="ts">
+	// @ts-nocheck
 	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
 
 	export let threshold = 0;
 	export let horizontal = false;
-	export let elementScroll: HTMLElement;
+	// export let elementScroll;
 	export let hasMore = true;
 
 	const dispatch = createEventDispatcher();
 	let isLoadMore = false;
-	let component: HTMLElement;
+	let component;
 
 	$: {
-		if (component || elementScroll) {
-			const element = elementScroll ? elementScroll : component.parentNode;
-
-			element!.addEventListener('scroll', onScroll);
-			element!.addEventListener('resize', onScroll);
+		if (component) {
+			const element = component.parentNode;
+			element.addEventListener('scroll', onScroll);
+			element.addEventListener('resize', onScroll);
 		}
 	}
 
 	const onScroll = (e: Event) => {
-		const element = e.target as Element;
+		const element = e.target;
 		const offset = horizontal
 			? element.scrollWidth - element.clientWidth - element.scrollLeft
 			: element.scrollHeight - element.clientHeight - element.scrollTop;
@@ -36,8 +36,8 @@
 	};
 
 	onDestroy(() => {
-		if (component || elementScroll) {
-			const element = elementScroll ? elementScroll : component.parentNode;
+		if (component) {
+			const element = component.parentNode;
 
 			element!.removeEventListener('scroll', null);
 			element!.removeEventListener('resize', null);
