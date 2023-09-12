@@ -5,6 +5,7 @@
 	import { usePostsQuery } from '$lib/posts/graphql/query.generated';
 	import { GraphQLClient } from 'graphql-request';
 	import InfiniteScroll from '$lib/components/InfiniteScroll.svelte';
+	import IconLogo from '../../assets/icon/icon-logo.svelte';
 
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 	const postsQueryResult = usePostsQuery(gqlClient);
@@ -17,7 +18,6 @@
 
 	async function fetchData() {
 		newBatch = posts;
-		// console.log('🍄', newBatch);
 	}
 
 	onMount(() => {
@@ -27,8 +27,10 @@
 	$: data = [...data, ...newBatch];
 </script>
 
-<div>
-	<div class="header-container" />
+<div class="wrapper">
+	<div class="header-container">
+		<IconLogo />
+	</div>
 	<div class="posts-container flex flex-wrap justify-center">
 		{#each data as post}
 			<Post {post} />
@@ -45,13 +47,25 @@
 	</div>
 </div>
 
-<style>
-	.header-container {
-		height: 460px;
-	}
-	.posts-container {
-		max-width: 1200px;
-		height: 60vh;
-		overflow-x: scroll;
+<style lang="scss">
+	.wrapper {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		.header-container {
+			height: 440px;
+			width: 100%;
+			background-color: #3147b1;
+			margin-bottom: 80px;
+			display: flex;
+			justify-content: center;
+			padding-top: 48px;
+		}
+		.posts-container {
+			margin: 0 auto;
+			max-width: 1200px;
+			height: 60vh;
+			overflow-x: scroll;
+		}
 	}
 </style>

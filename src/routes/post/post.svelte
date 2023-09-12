@@ -30,7 +30,9 @@
 		>
 			<IconStar {isFavorite} />
 		</button>
-		<div class="status">{post?.status === 'open' ? '판매중' : '판매완료'}</div>
+		<div class={`status ${post?.status}`}>
+			{post?.status === 'open' ? '판매중' : post?.status === 'close' ? '판매완료' : '예약중'}
+		</div>
 	</div>
 	<div class="content-container">
 		<div>
@@ -42,7 +44,7 @@
 				<div class="amount">{post?.price}</div>
 				<div class="date">{post?.create_date}</div>
 			</div>
-			<div class="name">{'name'}</div>
+			<div class="name">{post?.member.name}</div>
 		</section>
 	</div>
 </div>
@@ -51,6 +53,7 @@
 	.post-container {
 		min-width: 300px;
 		max-width: 1200px;
+		margin-top: 20px;
 	}
 	.image-container {
 		position: relative;
@@ -72,14 +75,25 @@
 			position: absolute;
 			width: 50px;
 			height: 20px;
-			background-color: red;
-			color: #fff;
+
 			top: 0px;
 			left: 40px;
 			text-align: center;
 			font-size: 12px;
 			border-bottom-left-radius: 8px;
 			border-bottom-right-radius: 8px;
+		}
+		.open {
+			background-color: red;
+			color: #fff;
+		}
+		.close {
+			background-color: #ccc;
+			color: #fff;
+		}
+		.ing {
+			background-color: green;
+			color: #fff;
 		}
 	}
 	.content-container {
