@@ -3,12 +3,8 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
-	[_ in K]?: never;
-};
-export type Incremental<T> =
-	| T
-	| { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
 	ID: { input: string; output: string };
@@ -27,7 +23,42 @@ export interface ICountry {
 	name: Scalars['String']['output'];
 }
 
+export interface IGetChatMessage {
+	contents: Scalars['String']['output'];
+	create_date: Scalars['String']['output'];
+	name: Scalars['String']['output'];
+	room_id: Scalars['Int']['output'];
+	user_id: Scalars['Int']['output'];
+	user_image?: Maybe<Scalars['String']['output']>;
+}
+
+export interface IGetRoomList {
+	last_message?: Maybe<Scalars['String']['output']>;
+	last_message_date?: Maybe<Scalars['String']['output']>;
+	post_id: Scalars['Int']['output'];
+	post_title?: Maybe<Scalars['String']['output']>;
+	product_image?: Maybe<Scalars['String']['output']>;
+	room_id: Scalars['Int']['output'];
+	user_list: Array<IUserList>;
+}
+
 export interface IQuery {
 	countries: Array<Maybe<ICountry>>;
 	country?: Maybe<ICountry>;
+	getChatMessage: Array<Maybe<IGetChatMessage>>;
+	getRoomList?: Maybe<Array<Maybe<IGetRoomList>>>;
+}
+
+export interface IQueryGetChatMessageArgs {
+	id?: InputMaybe<Scalars['Int']['input']>;
+}
+
+export interface IQueryGetRoomListArgs {
+	id?: InputMaybe<Scalars['Int']['input']>;
+}
+
+export interface IUserList {
+	name: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+	user_image?: Maybe<Scalars['String']['output']>;
 }
