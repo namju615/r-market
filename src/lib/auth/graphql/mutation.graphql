@@ -1,0 +1,7 @@
+mutation AddMember($member: MemberInput!) {
+	addMember(member: $member) {
+		email
+		name
+		profile_image_url
+	}: Member
+}

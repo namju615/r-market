@@ -1,0 +1,12 @@
+query Member($email: String!) {
+	member(email: $email) {
+		user_id
+		email
+		name
+		profile_image_url
+		manager_flag
+		# create_date
+		score
+		notification_flag
+	}
+}

@@ -1,0 +1,23 @@
+type Member {
+	user_id: ID
+	email: String!
+	name: String!
+	profile_image_url: String
+	manager_flag: Boolean
+	# create_date: DateTime
+	score: Int
+	notification_flag: Boolean
+}
+input MemberInput {
+	email: String!
+	name: String!
+	profile_image_url: String
+}
+
+type Query {
+	member(email: String!): Member
+}
+
+type Mutation {
+	addMember(member: MemberInput!): Member!
+}
