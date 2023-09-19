@@ -1,5 +1,4 @@
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { ANON_KEY, PROJECT } from '$env/static/private'; // load from env
 
 export class SupabaseService {
 	private static instance?: SupabaseService;
@@ -7,7 +6,7 @@ export class SupabaseService {
 
 	private constructor() {
 		console.log('SupabaseService create instance');
-		this.supabase = createClient(`https://${PROJECT}.supabase.co`, ANON_KEY);
+		this.supabase = createClient(`https://${import.meta.env.VITE_PROJECT}.supabase.co`, import.meta.env.VITE_ANON_KEY);
 	}
 
 	public static getInstance() {
