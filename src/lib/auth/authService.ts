@@ -33,11 +33,15 @@ export class AuthService {
 
 	async signUp(user: { uuid: string; email?: string; name?: string; profile_image_url?: string }) {
 		const { data, error } = await this.supabase.from('member').select().eq('uuid', user.uuid).single();
-		if (!data) {
-			const response = await this.supabase.from('member').insert(user).select().single();
-			return response.data;
-		} else {
-			return data;
+
+		// The result contains 0 rows
+		if (!error || error.code === 'PGRST116') {
+			if (!data) {
+				const response = await this.supabase.from('member').insert(user).select().single();
+				return response.data;
+			} else {
+				return data;
+			}
 		}
 	}
 

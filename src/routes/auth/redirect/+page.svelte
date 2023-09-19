@@ -17,7 +17,8 @@
 				}),
 			});
 			if (response.status === 200) {
-				// TODO access_token, refresh_token 저장
+				sessionStorage.setItem('T1', params.access_token);
+				sessionStorage.setItem('T2', params.refresh_token);
 			} else {
 				throw new Error('Unable to get your location');
 			}
