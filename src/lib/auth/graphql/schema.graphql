@@ -7,15 +7,17 @@ type Member {
 	# create_date: DateTime
 	score: Int
 	notification_flag: Boolean
+	uuid: String
 }
 input MemberInput {
+	uuid: String!
 	email: String!
 	name: String!
 	profile_image_url: String
 }
 
 type Query {
-	member(email: String!): Member
+	member(uuid: String!): Member
 }
 
 type Mutation {

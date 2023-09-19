@@ -22,10 +22,13 @@ const yogaApp = createYoga<RequestEvent>({
 			Query: {
 				countries: () => countries.data,
 				country: () => country.data[0],
-				member: (_, { email }: { email: string }) => member(email),
+				member: (_, { uuid }: { uuid: string }) => member(uuid),
 			},
 			Mutation: {
-				addMember: (_, { member }: { member: { email: string; name: string } }) => addMember(member),
+				addMember: (
+					_,
+					{ member }: { member: { uuid: string; email: string; name: string; profile_image_url?: string } },
+				) => addMember(member),
 			},
 		},
 	}),

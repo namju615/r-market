@@ -7,8 +7,8 @@ interface IMember {
 	profile_image_url?: string;
 }
 
-export const member = async (email: string) => {
-	const response = await SupabaseInstanse().getClient().from('member').select().eq('email', email).single();
+export const member = async (uuid: string) => {
+	const response = await SupabaseInstanse().getClient().from('member').select().eq('uuid', uuid).single();
 	return response.data;
 };
 export const addMember = async (member: IMember) => {

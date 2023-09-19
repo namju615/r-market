@@ -1,5 +1,5 @@
-query Member($email: String!) {
-	member(email: $email) {
+query Member($uuid: String!) {
+	member(uuid: $uuid) {
 		user_id
 		email
 		name
@@ -8,5 +8,6 @@ query Member($email: String!) {
 		# create_date
 		score
 		notification_flag
+		uuid
 	}
 }
