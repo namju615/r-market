@@ -43,6 +43,7 @@ export class AuthService {
 				return data;
 			}
 		}
+		return null;
 	}
 
 	// 사용자 로그아웃 (sign out) 메서드
