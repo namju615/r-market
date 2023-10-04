@@ -1,0 +1,19 @@
+query Topics($user_id: Int!) {
+	topicWithToken(user_id: $user_id) {
+		topics {
+			topic_id
+			topic_name
+			user_id
+			use_yn
+			created_at
+			updated_at
+		}
+		token {
+			token_id
+			user_id
+			token_value
+			created_at
+			updated_at
+		}
+	}
+}

@@ -1,0 +1,22 @@
+type Token {
+	token_id: Int!
+	user_id: Int!
+	token_value: String!
+	created_at: String!
+	updated_at: String!
+}
+
+input TokenInput {
+	user_id: Int!
+	token_value: String!
+}
+
+type Query {
+	tokens(user_id: Int!): [Token]
+	latestToken(user_id: Int!): Token
+}
+
+type Mutation {
+	createToken(input: TokenInput!): Token
+	updateToken(input: TokenInput!): Token
+}

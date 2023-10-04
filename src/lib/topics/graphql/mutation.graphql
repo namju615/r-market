@@ -1,0 +1,21 @@
+mutation Subscribe($input: TopicInput!) {
+	subscribe(input: $input) {
+		topic_id
+		topic_name
+		user_id
+		use_yn
+		created_at
+		updated_at
+	}
+}
+
+mutation Unsubscribe($input: TopicInput!) {
+	unsubscribe(input: $input) {
+		topic_id
+		topic_name
+		user_id
+		use_yn
+		created_at
+		updated_at
+	}
+}

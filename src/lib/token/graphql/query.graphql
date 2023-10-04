@@ -1,0 +1,19 @@
+query Tokens($user_id: Int!) {
+	tokens(user_id: $user_id) {
+		token_id
+		user_id
+		token_value
+		created_at
+		updated_at
+	}
+}
+
+query LatestToken($user_id: Int!) {
+	latestToken(user_id: $user_id) {
+		token_id
+		user_id
+		token_value
+		created_at
+		updated_at
+	}
+}

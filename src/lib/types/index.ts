@@ -43,18 +43,87 @@ export interface IMemberInput {
 
 export interface IMutation {
 	addMember: IMember;
+	createToken?: Maybe<IToken>;
+	subscribe?: Maybe<ITopic>;
+	unsubscribe?: Maybe<ITopic>;
+	updateToken?: Maybe<IToken>;
 }
 
 export interface IMutationAddMemberArgs {
 	member: IMemberInput;
 }
 
+export interface IMutationCreateTokenArgs {
+	input: ITokenInput;
+}
+
+export interface IMutationSubscribeArgs {
+	input: ITopicInput;
+}
+
+export interface IMutationUnsubscribeArgs {
+	input: ITopicInput;
+}
+
+export interface IMutationUpdateTokenArgs {
+	input: ITokenInput;
+}
+
 export interface IQuery {
 	countries: Array<Maybe<ICountry>>;
 	country?: Maybe<ICountry>;
-	member: IMember;
+	latestToken?: Maybe<IToken>;
+	member?: Maybe<IMember>;
+	tokens?: Maybe<Array<Maybe<IToken>>>;
+	topicWithToken?: Maybe<ITopicsWithToken>;
+}
+
+export interface IQueryLatestTokenArgs {
+	user_id: Scalars['Int']['input'];
 }
 
 export interface IQueryMemberArgs {
 	uuid: Scalars['String']['input'];
+}
+
+export interface IQueryTokensArgs {
+	user_id: Scalars['Int']['input'];
+}
+
+export interface IQueryTopicWithTokenArgs {
+	user_id: Scalars['Int']['input'];
+}
+
+export interface IToken {
+	created_at: Scalars['String']['output'];
+	token_id: Scalars['Int']['output'];
+	token_value: Scalars['String']['output'];
+	updated_at: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+}
+
+export interface ITokenInput {
+	token_value: Scalars['String']['input'];
+	user_id: Scalars['Int']['input'];
+}
+
+export interface ITopic {
+	created_at: Scalars['String']['output'];
+	topic_id: Scalars['Int']['output'];
+	topic_name: Scalars['String']['output'];
+	updated_at: Scalars['String']['output'];
+	use_yn: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+}
+
+export interface ITopicInput {
+	topic_id?: InputMaybe<Scalars['Int']['input']>;
+	topic_name: Scalars['String']['input'];
+	use_yn: Scalars['String']['input'];
+	user_id: Scalars['Int']['input'];
+}
+
+export interface ITopicsWithToken {
+	token?: Maybe<IToken>;
+	topics: Array<Maybe<ITopic>>;
 }

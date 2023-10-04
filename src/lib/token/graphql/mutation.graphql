@@ -1,0 +1,19 @@
+mutation CreateToken($input: TokenInput!) {
+	createToken(input: $input) {
+		token_id
+		user_id
+		token_value
+		created_at
+		updated_at
+	}
+}
+
+mutation UpdateToken($input: TokenInput!) {
+	updateToken(input: $input) {
+		token_id
+		user_id
+		token_value
+		created_at
+		updated_at
+	}
+}

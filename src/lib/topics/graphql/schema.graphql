@@ -1,0 +1,29 @@
+type Topic {
+	topic_id: Int!
+	topic_name: String!
+	user_id: Int!
+	use_yn: String!
+	created_at: String!
+	updated_at: String!
+}
+
+type TopicsWithToken {
+	topics: [Topic]!
+	token: Token
+}
+
+input TopicInput {
+	topic_name: String!
+	user_id: Int!
+	use_yn: String!
+	topic_id: Int
+}
+
+type Query {
+	topicWithToken(user_id: Int!): TopicsWithToken
+}
+
+type Mutation {
+	subscribe(input: TopicInput!): Topic
+	unsubscribe(input: TopicInput!): Topic
+}
