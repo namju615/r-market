@@ -70,6 +70,14 @@ export class AuthService {
 		}
 		return null;
 	}
+
+	async refreshSession(refresh_token: string) {
+		if (refresh_token) {
+			const { data, error } = await this.supabase.auth.refreshSession({ refresh_token });
+			return data;
+		}
+		return null;
+	}
 }
 
 export const AuthInstanse = AuthService.getInstance;
