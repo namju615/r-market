@@ -21,14 +21,14 @@ export type IGetChatMessageQueryVariables = Types.Exact<{
 }>;
 
 export type IGetChatMessageQuery = {
-	getChatMessage: Array<{
+	getChatMessage?: Array<{
 		room_id: number;
 		user_id: number;
 		name: string;
 		user_image?: string | null;
 		contents: string;
 		create_date: string;
-	} | null>;
+	}> | null;
 };
 
 export type IGetRoomListQueryVariables = Types.Exact<{

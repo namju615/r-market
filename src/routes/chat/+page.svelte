@@ -5,6 +5,8 @@
 	import ChatList from '$lib/components/ChatList.svelte';
 	import ChatMain from '$lib/components/ChatMain.svelte';
 	import ChevronIcon from '$lib/components/icons/ChevronIcon.svelte';
+	import { onMount } from 'svelte';
+	import { socket } from '$lib/chat';
 
 	export let data: PageData;
 	let activeRoomId: number | undefined = undefined;
@@ -12,7 +14,6 @@
 	const MY_USER_ID = 1;
 
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-
 	$: chatListResult = useGetRoomListQuery(gqlClient, { user_id: MY_USER_ID });
 	$: chatMessageResult = useGetChatMessageQuery(
 		gqlClient,
@@ -21,6 +22,16 @@
 			enabled: !!activeRoomId,
 		},
 	);
+
+	onMount(() => {
+		socket.on('new_message_other_room', () => {
+			console.log('test');
+			$chatListResult.refetch();
+		});
+	});
+
+	function handleKeyDown(event: KeyboardEvent) {}
+
 	$: chatList = $chatListResult.data! || {};
 	$: chatMessage = $chatMessageResult.data! || {};
 </script>
@@ -30,12 +41,19 @@
 </svelte:head>
 
 {#if chatListResult}
-	<ChatList data={chatList} {isOpen} onClick={(room_id) => (activeRoomId = room_id)} />
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<ChatList
+		data={chatList}
+		{isOpen}
+		onClick={(room_id) => {
+			activeRoomId = room_id;
+			$chatMessageResult.refetch();
+		}}
+	/>
 	<div
 		on:click={(e) => {
 			isOpen = !isOpen;
 		}}
+		on:keydown={handleKeyDown}
 		class="flex items-center h-full border-r-[3px] border-[#3147B11A]"
 	>
 		<ChevronIcon direction={isOpen ? 'left' : 'right'} />

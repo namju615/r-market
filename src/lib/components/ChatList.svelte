@@ -10,7 +10,6 @@
 	const MY_USER_ID = 1;
 
 	const getRoomImage = (user_list: Array<{ name: string; user_id: number; user_image?: string | null }>) => {
-		console.log(user_list);
 		if (user_list.length > 2) {
 			return user_list.slice(0, 4).map((user) => ({ src: user.user_image ?? '/profile.jpeg', alt: user.name }));
 		} else if (user_list.length > 1) {
@@ -65,7 +64,11 @@
 						</div>
 						<div class="mt-[27px] ml-auto mr-[12px]">
 							<div class="flex">
-								<div class="text-[10px] text-[#999]">{room?.gap_time}시간 전</div>
+								{#if Number(room?.gap_time) > 24}
+									<div class="text-[10px] text-[#999]">{Math.floor(Number(room?.gap_time) / 24)}일 전</div>
+								{:else}
+									<div class="text-[10px] text-[#999]">{room?.gap_time}시간 전</div>
+								{/if}
 								<div class="ml-[10px]">
 									<MoreIcon />
 								</div>

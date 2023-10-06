@@ -14,6 +14,20 @@ export interface Scalars {
 	Float: { input: number; output: number };
 }
 
+export interface IChatMessage {
+	contents: Scalars['String']['output'];
+	create_date: Scalars['String']['output'];
+	message_id: Scalars['Int']['output'];
+	room_id: Scalars['Int']['output'];
+	user_id: Scalars['Int']['output'];
+}
+
+export interface IChatMessageForm {
+	contents: Scalars['String']['input'];
+	room_id: Scalars['Int']['input'];
+	user_id: Scalars['Int']['input'];
+}
+
 export interface ICountry {
 	continent?: Maybe<Scalars['String']['output']>;
 	id: Scalars['Int']['output'];
@@ -42,10 +56,18 @@ export interface IGetRoomList {
 	user_list: Array<IUserList>;
 }
 
+export interface IMutation {
+	addChatMessage: IChatMessage;
+}
+
+export interface IMutationAddChatMessageArgs {
+	chat: IChatMessageForm;
+}
+
 export interface IQuery {
 	countries: Array<Maybe<ICountry>>;
 	country?: Maybe<ICountry>;
-	getChatMessage: Array<Maybe<IGetChatMessage>>;
+	getChatMessage?: Maybe<Array<IGetChatMessage>>;
 	getRoomList?: Maybe<Array<Maybe<IGetRoomList>>>;
 }
 

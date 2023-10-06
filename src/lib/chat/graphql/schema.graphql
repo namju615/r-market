@@ -23,7 +23,25 @@ type GetRoomList {
 	last_message: String
 }
 
+input ChatMessageForm {
+	room_id: Int!
+	user_id: Int!
+	contents: String!
+}
+
+type ChatMessage {
+	room_id: Int!
+	user_id: Int!
+	message_id: Int!
+	contents: String!
+	create_date: String!
+}
+
 type Query {
 	getChatMessage(id: Int): [GetChatMessage!]
 	getRoomList(id: Int): [GetRoomList]
+}
+
+type Mutation {
+	addChatMessage(chat: ChatMessageForm!): ChatMessage!
 }
