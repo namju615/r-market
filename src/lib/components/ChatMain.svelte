@@ -19,7 +19,14 @@
 	let textfield = '';
 	let chatContainer: HTMLDivElement;
 	$: messages = data.getChatMessage || [];
-	const mutation = useAddChatMessageMutation(gqlClient);
+	const mutation = useAddChatMessageMutation(gqlClient, {
+		onSuccess: (data) => {
+			socket.emit('new_message', data.addChatMessage.contents, room_id, MY_USER_NAME, MY_USER_ID, MY_USER_IMAGE, () => {
+				addMessage(data.addChatMessage.contents);
+			}); // Send the message
+			socket.emit('refetch_room_list'); // refetch chat list
+		},
+	});
 
 	async function scrollToBottom(node: HTMLDivElement) {
 		node.scroll({ top: node.scrollHeight });
@@ -55,11 +62,11 @@
 	}
 
 	onMount(() => {
-		// socket.emit('join_room', room_id, MY_USER_NAME, () => {
-		// 	socket.on('welcome', (data) => {
-		// 		addMessage(`${data.name}님이 입장하셨습니다.`, true);
-		// 	});
-		// });
+		socket.emit('join_room', room_id, MY_USER_NAME, () => {
+			// socket.on('welcome', (data) => {
+			// 	addMessage(`${data.name}님이 입장하셨습니다.`, true);
+			// });
+		});
 		socket.on('new_message', (message) => {
 			messages = [...messages, message];
 		});
@@ -75,11 +82,6 @@
 
 		textfield = '';
 		await $mutation.mutate({ chat: { room_id: room_id, user_id: MY_USER_ID, contents: message } });
-		console.log(room_id);
-		socket.emit('new_message', message, room_id, MY_USER_NAME, MY_USER_ID, MY_USER_IMAGE, () => {
-			addMessage(message);
-		}); // Send the message
-		socket.emit('new_message_other_room');
 	}
 </script>
 

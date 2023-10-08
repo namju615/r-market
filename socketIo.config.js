@@ -1,8 +1,8 @@
 import { Server } from 'socket.io';
 
 export default function injectSocketIO(server) {
-	const wsServer = new Server(server.httpServer);
-	wsServer.on('connection', (socket) => {
+	const io = new Server(server.httpServer);
+	io.on('connection', (socket) => {
 		socket.on('join_room', (room_id, name, done) => {
 			socket.join(room_id);
 			done();
@@ -22,8 +22,8 @@ export default function injectSocketIO(server) {
 			});
 			done();
 		});
-		socket.on('new_message_other_room', () => {
-			socket.emit('new_message_other_room');
+		socket.on('refetch_room_list', () => {
+			io.emit('refetch_room_list');
 		});
 	});
 

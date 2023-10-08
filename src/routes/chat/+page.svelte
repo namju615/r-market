@@ -23,9 +23,8 @@
 		},
 	);
 
-	onMount(() => {
-		socket.on('new_message_other_room', () => {
-			console.log('test');
+	onMount(async () => {
+		await socket.on('refetch_room_list', () => {
 			$chatListResult.refetch();
 		});
 	});
