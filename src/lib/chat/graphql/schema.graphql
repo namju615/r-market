@@ -1,0 +1,47 @@
+type GetChatMessage {
+	room_id: Int!
+	user_id: Int!
+	name: String!
+	user_image: String
+	contents: String!
+	create_date: String!
+}
+
+type UserList {
+	name: String!
+	user_id: Int!
+	user_image: String
+}
+
+type GetRoomList {
+	room_id: Int!
+	user_list: [UserList!]!
+	post_id: Int!
+	post_title: String
+	product_image: String
+	last_message_date: String
+	last_message: String
+}
+
+input ChatMessageForm {
+	room_id: Int!
+	user_id: Int!
+	contents: String!
+}
+
+type ChatMessage {
+	room_id: Int!
+	user_id: Int!
+	message_id: Int!
+	contents: String!
+	create_date: String!
+}
+
+type Query {
+	getChatMessage(id: Int): [GetChatMessage!]
+	getRoomList(id: Int): [GetRoomList]
+}
+
+type Mutation {
+	addChatMessage(chat: ChatMessageForm!): ChatMessage!
+}

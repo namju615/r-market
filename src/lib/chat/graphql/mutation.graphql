@@ -1,0 +1,9 @@
+mutation AddChatMessage($chat: ChatMessageForm!) {
+	addChatMessage(chat: $chat) {
+		room_id
+		user_id
+		message_id
+		contents
+		create_date
+	}
+}

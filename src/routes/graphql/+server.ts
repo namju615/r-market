@@ -6,6 +6,7 @@ import countries from '$lib/countries/db';
 import { member, addMember } from '$lib/auth/db';
 
 import type { RequestEvent } from '@sveltejs/kit';
+import { addChatMessage, getChatMessage, getRoomList } from '$lib/chat/db';
 
 const typeDefs = await loadSchema('./src/lib/**/graphql/schema.graphql', {
 	loaders: [new GraphQLFileLoader()],
@@ -23,12 +24,24 @@ const yogaApp = createYoga<RequestEvent>({
 				countries: () => countries.data,
 				country: () => country.data[0],
 				member: (_, { uuid }: { uuid: string }) => member(uuid),
+				getRoomList: async (_, args) => {
+					const { data } = await getRoomList(args.id);
+					return data;
+				},
+				getChatMessage: async (_, args) => {
+					const { data } = await getChatMessage(args.id);
+					return data;
+				},
 			},
 			Mutation: {
 				addMember: (
 					_,
 					{ member }: { member: { uuid: string; email: string; name: string; profile_image_url?: string } },
 				) => addMember(member),
+				addChatMessage: async (_, args) => {
+					const { data } = await addChatMessage(args.chat);
+					return data;
+				},
 			},
 		},
 	}),

@@ -10,7 +10,7 @@ export const load = (async ({ route }: { route: { id: string } }) => {
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 
 	await queryClient.prefetchQuery(useCountryQuery.getKey(), useCountryQuery.fetcher(gqlClient));
- 
+
 	if (route.id === '/country') {
 		return {
 			title: 'country',
