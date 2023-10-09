@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { IGetRoomListQuery } from '$lib/chat/graphql/query.generated';
-	import { Avatar, Gallery } from 'flowbite-svelte';
+	import { Gallery } from 'flowbite-svelte';
 	import MoreIcon from './icons/MoreIcon.svelte';
 	import dayjs from 'dayjs';
 	export let data: IGetRoomListQuery;
@@ -20,14 +20,24 @@
 	};
 
 	$: roomList = data.getRoomList?.map((item) => {
-		const gap_time = item?.last_message_date ? dayjs().diff(item.last_message_date, 'hour') : '';
 		const room_image = item?.user_list
 			? getRoomImage(item.user_list)
 			: [{ src: '/profile.jpeg' ?? '', alt: 'default' }];
-		return { ...item, gap_time, room_image };
+		return { ...item, room_image };
 	});
 
 	function handleKeyDown(event: KeyboardEvent) {}
+
+	function getGapTime(date: string) {
+		const gap_min = dayjs().diff(date, 'minute');
+		if (gap_min > 1440) {
+			return Math.floor(gap_min / 1440) + '일 전';
+		} else if (gap_min > 60) {
+			return Math.floor(gap_min / 60) + '시간 전';
+		} else {
+			return gap_min + '분 전';
+		}
+	}
 </script>
 
 {#if isOpen}
@@ -39,7 +49,7 @@
 		</div>
 
 		{#if roomList}
-			{#each roomList as room, index}
+			{#each roomList as room}
 				<div
 					class="h-[103px] border-b border-[#3147B11A] hover:bg-slate-100"
 					role="button"
@@ -64,11 +74,7 @@
 						</div>
 						<div class="mt-[27px] ml-auto mr-[12px]">
 							<div class="flex">
-								{#if Number(room?.gap_time) > 24}
-									<div class="text-[10px] text-[#999]">{Math.floor(Number(room?.gap_time) / 24)}일 전</div>
-								{:else}
-									<div class="text-[10px] text-[#999]">{room?.gap_time}시간 전</div>
-								{/if}
+								<div class="text-[10px] text-[#999]">{getGapTime(room?.last_message_date ?? '')}</div>
 								<div class="ml-[10px]">
 									<MoreIcon />
 								</div>

@@ -8,20 +8,21 @@
 	import SendIcon from './icons/SendIcon.svelte';
 	import ImageIcon from './icons/ImageIcon.svelte';
 	import { useAddChatMessageMutation } from '$lib/chat/graphql/mutation.generated';
+	import { member } from '../../stores/member';
 
 	export let data: IGetChatMessageQuery;
 	export let room_id: number;
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-	const MY_USER_ID = 1;
-	const MY_USER_NAME = '민경환';
-	const MY_USER_IMAGE = 'https://lh3.googleusercontent.com/a/AAcHTtcW0f-RVpJVnpCGdjgJLNvvKul87VluNV3GE5pSuzw-Iw=s96-c';
+	const userId = $member?.user_id;
+	const userNm = $member?.name;
+	const profileImg = $member?.profile_image_url;
 
 	let textfield = '';
 	let chatContainer: HTMLDivElement;
 	$: messages = data.getChatMessage || [];
 	const mutation = useAddChatMessageMutation(gqlClient, {
 		onSuccess: (data) => {
-			socket.emit('new_message', data.addChatMessage.contents, room_id, MY_USER_NAME, MY_USER_ID, MY_USER_IMAGE, () => {
+			socket.emit('new_message', data.addChatMessage.contents, room_id, userNm, userId, profileImg, () => {
 				addMessage(data.addChatMessage.contents);
 			}); // Send the message
 			socket.emit('refetch_room_list'); // refetch chat list
@@ -50,11 +51,11 @@
 					...messages,
 					{
 						room_id: room_id,
-						user_id: MY_USER_ID,
+						user_id: userId,
 						create_date: new Date().toString(),
 						contents: message,
-						name: MY_USER_NAME,
-						user_image: MY_USER_IMAGE,
+						name: userNm,
+						user_image: profileImg,
 					},
 				];
 			}
@@ -62,7 +63,7 @@
 	}
 
 	onMount(() => {
-		socket.emit('join_room', room_id, MY_USER_NAME, () => {
+		socket.emit('join_room', room_id, userNm, () => {
 			// socket.on('welcome', (data) => {
 			// 	addMessage(`${data.name}님이 입장하셨습니다.`, true);
 			// });
@@ -81,7 +82,7 @@
 		if (!message) return;
 
 		textfield = '';
-		await $mutation.mutate({ chat: { room_id: room_id, user_id: MY_USER_ID, contents: message } });
+		await $mutation.mutate({ chat: { room_id: room_id, user_id: userId, contents: message } });
 	}
 </script>
 

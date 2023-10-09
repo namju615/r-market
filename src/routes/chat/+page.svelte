@@ -7,14 +7,15 @@
 	import ChevronIcon from '$lib/components/icons/ChevronIcon.svelte';
 	import { onMount } from 'svelte';
 	import { socket } from '$lib/chat';
+	import { member } from '../../stores/member';
 
 	export let data: PageData;
 	let activeRoomId: number | undefined = undefined;
 	let isOpen = true;
-	const MY_USER_ID = 1;
+	$: user_id = $member?.user_id;
 
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-	$: chatListResult = useGetRoomListQuery(gqlClient, { user_id: MY_USER_ID });
+	$: chatListResult = useGetRoomListQuery(gqlClient, { user_id }, { enabled: !!user_id });
 	$: chatMessageResult = useGetChatMessageQuery(
 		gqlClient,
 		{ room_id: Number(activeRoomId) },
