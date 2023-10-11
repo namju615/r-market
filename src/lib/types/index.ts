@@ -37,32 +37,6 @@ export interface ICountry {
 	name: Scalars['String']['output'];
 }
 
-export interface IMember {
-	email: Scalars['String']['output'];
-	manager_flag?: Maybe<Scalars['Boolean']['output']>;
-	name: Scalars['String']['output'];
-	notification_flag?: Maybe<Scalars['Boolean']['output']>;
-	profile_image_url?: Maybe<Scalars['String']['output']>;
-	score?: Maybe<Scalars['Int']['output']>;
-	user_id?: Maybe<Scalars['ID']['output']>;
-	uuid?: Maybe<Scalars['String']['output']>;
-}
-
-export interface IMemberInput {
-	email: Scalars['String']['input'];
-	name: Scalars['String']['input'];
-	profile_image_url?: InputMaybe<Scalars['String']['input']>;
-	uuid: Scalars['String']['input'];
-}
-
-export interface IMutation {
-	addMember: IMember;
-}
-
-export interface IMutationAddMemberArgs {
-	member: IMemberInput;
-}
-
 export interface IGetChatMessage {
 	contents: Scalars['String']['output'];
 	create_date: Scalars['String']['output'];
@@ -82,14 +56,35 @@ export interface IGetRoomList {
 	user_list: Array<IUserList>;
 }
 
+export interface IMember {
+	email: Scalars['String']['output'];
+	manager_flag?: Maybe<Scalars['Boolean']['output']>;
+	name: Scalars['String']['output'];
+	notification_flag?: Maybe<Scalars['Boolean']['output']>;
+	profile_image_url?: Maybe<Scalars['String']['output']>;
+	score?: Maybe<Scalars['Int']['output']>;
+	user_id?: Maybe<Scalars['ID']['output']>;
+	uuid?: Maybe<Scalars['String']['output']>;
+}
+
+export interface IMemberInput {
+	email: Scalars['String']['input'];
+	name: Scalars['String']['input'];
+	profile_image_url?: InputMaybe<Scalars['String']['input']>;
+	uuid: Scalars['String']['input'];
+}
+
 export interface IMutation {
 	addChatMessage: IChatMessage;
+	addMember: IMember;
 }
 
 export interface IMutationAddChatMessageArgs {
 	chat: IChatMessageForm;
-	name: Scalars['String']['output'];
-	user_id: Scalars['Int']['output'];
+}
+
+export interface IMutationAddMemberArgs {
+	member: IMemberInput;
 }
 
 export interface IPost {
@@ -109,13 +104,11 @@ export interface IPost {
 export interface IQuery {
 	countries: Array<Maybe<ICountry>>;
 	country?: Maybe<ICountry>;
-	member: IMember;
-}
-
-export interface IQueryMemberArgs {
-	uuid: Scalars['String']['input'];
 	getChatMessage?: Maybe<Array<IGetChatMessage>>;
 	getRoomList?: Maybe<Array<Maybe<IGetRoomList>>>;
+	member?: Maybe<IMember>;
+	post?: Maybe<IPost>;
+	posts: Array<Maybe<IPost>>;
 }
 
 export interface IQueryGetChatMessageArgs {
@@ -126,10 +119,12 @@ export interface IQueryGetRoomListArgs {
 	id?: InputMaybe<Scalars['Int']['input']>;
 }
 
+export interface IQueryMemberArgs {
+	uuid: Scalars['String']['input'];
+}
+
 export interface IUserList {
 	name: Scalars['String']['output'];
 	user_id: Scalars['Int']['output'];
 	user_image?: Maybe<Scalars['String']['output']>;
-	post?: Maybe<IPost>;
-	posts: Array<Maybe<IPost>>;
 }

@@ -21,7 +21,7 @@ export type IMemberQueryVariables = Types.Exact<{
 }>;
 
 export type IMemberQuery = {
-	member: {
+	member?: {
 		user_id?: string | null;
 		email: string;
 		name: string;
@@ -30,7 +30,7 @@ export type IMemberQuery = {
 		score?: number | null;
 		notification_flag?: boolean | null;
 		uuid?: string | null;
-	};
+	} | null;
 };
 
 export const MemberDocument = /*#__PURE__*/ `

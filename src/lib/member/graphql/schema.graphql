@@ -1,9 +1,0 @@
-type Member {
-	user_id: Int!
-	email: String!
-	name: String!
-}
-
-type Query {
-	member: Member!
-}

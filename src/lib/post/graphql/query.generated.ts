@@ -30,7 +30,7 @@ export type IPostQuery = {
 		update_date: string;
 		post_id: number;
 		view_count: number;
-		member: { user_id: number; email: string; name: string };
+		member: { user_id?: string | null; email: string; name: string };
 	} | null;
 };
 
