@@ -47,11 +47,7 @@
 		"dayjs": "^1.11.9",
 		"flowbite": "^1.8.1",
 		"flowbite-svelte": "^0.43.3",
-<<<<<<< HEAD
 		"glob": "^10.3.4",
-=======
-		"glob": "10.3.4",
->>>>>>> feature/post
 		"graphql": "^16.8.0",
 		"graphql-request": "^6.1.0",
 		"graphql-yoga": "^4.0.4",
