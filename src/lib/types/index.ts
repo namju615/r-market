@@ -88,6 +88,22 @@ export interface IMutation {
 
 export interface IMutationAddChatMessageArgs {
 	chat: IChatMessageForm;
+	name: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+}
+
+export interface IPost {
+	create_date: Scalars['String']['output'];
+	hashtag: Scalars['String']['output'];
+	image_url: Scalars['String']['output'];
+	member: IMember;
+	post_id: Scalars['Int']['output'];
+	price: Scalars['Int']['output'];
+	status: Scalars['String']['output'];
+	title: Scalars['String']['output'];
+	update_date: Scalars['String']['output'];
+	user_id: Scalars['Int']['output'];
+	view_count: Scalars['Int']['output'];
 }
 
 export interface IQuery {
@@ -114,4 +130,6 @@ export interface IUserList {
 	name: Scalars['String']['output'];
 	user_id: Scalars['Int']['output'];
 	user_image?: Maybe<Scalars['String']['output']>;
+	post?: Maybe<IPost>;
+	posts: Array<Maybe<IPost>>;
 }

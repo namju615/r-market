@@ -4,6 +4,10 @@ import { loadSchema, loadDocuments } from '@graphql-tools/load';
 import country from '$lib/country/db';
 import countries from '$lib/countries/db';
 import { member, addMember } from '$lib/auth/db';
+import post from '$lib/post/db';
+import posts from '$lib/posts/db';
+
+// import member from '$lib/member/db';
 
 import type { RequestEvent } from '@sveltejs/kit';
 import { addChatMessage, getChatMessage, getRoomList } from '$lib/chat/db';
@@ -32,6 +36,9 @@ const yogaApp = createYoga<RequestEvent>({
 					const { data } = await getChatMessage(args.id);
 					return data;
 				},
+				posts: () => posts.data,
+				post: () => post.data[0],
+				// member: () => member.data,
 			},
 			Mutation: {
 				addMember: (
@@ -42,6 +49,7 @@ const yogaApp = createYoga<RequestEvent>({
 					const { data } = await addChatMessage(args.chat);
 					return data;
 				},
+				
 			},
 		},
 	}),

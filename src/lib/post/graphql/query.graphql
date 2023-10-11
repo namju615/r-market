@@ -1,0 +1,19 @@
+query Post {
+	post {
+		member {
+			user_id
+			email
+			name
+		}
+		user_id
+		title
+		hashtag
+		price
+		status
+		image_url
+		create_date
+		update_date
+		post_id
+		view_count
+	}
+}
