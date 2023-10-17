@@ -2,6 +2,7 @@ type Topic {
 	topic_id: Int!
 	topic_name: String!
 	user_id: Int!
+	token_id: Int!
 	use_yn: String!
 	created_at: String!
 	updated_at: String!
@@ -13,14 +14,15 @@ type TopicsWithToken {
 }
 
 input TopicInput {
-	topic_name: String!
-	user_id: Int!
-	use_yn: String!
+	topic_name: String
+	user_id: Int
+	use_yn: String
+	token_id: Int
 	topic_id: Int
 }
 
 type Query {
-	topicWithToken(user_id: Int!): TopicsWithToken
+	topicWithToken(user_id: Int!, token_id: Int!): TopicsWithToken
 }
 
 type Mutation {

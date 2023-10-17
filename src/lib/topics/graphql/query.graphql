@@ -1,8 +1,9 @@
-query Topics($user_id: Int!) {
-	topicWithToken(user_id: $user_id) {
+query Topics($user_id: Int!, $token_id: Int!) {
+	topicWithToken(user_id: $user_id, token_id: $token_id) {
 		topics {
 			topic_id
 			topic_name
+			token_id
 			user_id
 			use_yn
 			created_at
