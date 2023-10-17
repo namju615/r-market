@@ -4,6 +4,8 @@ import { loadSchema, loadDocuments } from '@graphql-tools/load';
 import country from '$lib/country/db';
 import countries from '$lib/countries/db';
 import { member, addMember } from '$lib/auth/db';
+import { getTopics, subscribe, unsubscribe } from '$lib/topics/db';
+import { getToken } from '$lib/token/db';
 
 import type { RequestEvent } from '@sveltejs/kit';
 
@@ -22,13 +24,23 @@ const yogaApp = createYoga<RequestEvent>({
 			Query: {
 				countries: () => countries.data,
 				country: () => country.data[0],
-				member: (_, { uuid }: { uuid: string }) => member(uuid),
+				member: (_, { email }: { email: string }) => member(email),
+				topicWithToken: async (_, { user_id, token_id }) => {
+					const { data: token } = await getToken({ user_id, token_id });
+					const topics = await getTopics(user_id, token_id);
+					return { topics, token: token ? token[0] : null };
+				},
 			},
 			Mutation: {
-				addMember: (
-					_,
-					{ member }: { member: { uuid: string; email: string; name: string; profile_image_url?: string } },
-				) => addMember(member),
+				addMember: (_, { member }: { member: { email: string; name: string } }) => addMember(member),
+				subscribe: (_, args, context, info) => {
+					console.log(context, info);
+					subscribe(args);
+				},
+				unsubscribe: (_, args) => {
+					const { data } = unsubscribe(args);
+					return data;
+				},
 			},
 		},
 	}),

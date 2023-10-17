@@ -91,6 +91,7 @@ export interface IQueryTokensArgs {
 }
 
 export interface IQueryTopicWithTokenArgs {
+	token_id: Scalars['Int']['input'];
 	user_id: Scalars['Int']['input'];
 }
 
@@ -109,6 +110,7 @@ export interface ITokenInput {
 
 export interface ITopic {
 	created_at: Scalars['String']['output'];
+	token_id: Scalars['Int']['output'];
 	topic_id: Scalars['Int']['output'];
 	topic_name: Scalars['String']['output'];
 	updated_at: Scalars['String']['output'];
@@ -117,10 +119,11 @@ export interface ITopic {
 }
 
 export interface ITopicInput {
+	token_id?: InputMaybe<Scalars['Int']['input']>;
 	topic_id?: InputMaybe<Scalars['Int']['input']>;
-	topic_name: Scalars['String']['input'];
-	use_yn: Scalars['String']['input'];
-	user_id: Scalars['Int']['input'];
+	topic_name?: InputMaybe<Scalars['String']['input']>;
+	use_yn?: InputMaybe<Scalars['String']['input']>;
+	user_id?: InputMaybe<Scalars['Int']['input']>;
 }
 
 export interface ITopicsWithToken {

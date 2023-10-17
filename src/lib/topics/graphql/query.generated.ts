@@ -18,6 +18,7 @@ function fetcher<TData, TVariables extends { [key: string]: any }>(
 }
 export type ITopicsQueryVariables = Types.Exact<{
 	user_id: Types.Scalars['Int']['input'];
+	token_id: Types.Scalars['Int']['input'];
 }>;
 
 export type ITopicsQuery = {
@@ -25,6 +26,7 @@ export type ITopicsQuery = {
 		topics: Array<{
 			topic_id: number;
 			topic_name: string;
+			token_id: number;
 			user_id: number;
 			use_yn: string;
 			created_at: string;
@@ -35,11 +37,12 @@ export type ITopicsQuery = {
 };
 
 export const TopicsDocument = /*#__PURE__*/ `
-    query Topics($user_id: Int!) {
-  topicWithToken(user_id: $user_id) {
+    query Topics($user_id: Int!, $token_id: Int!) {
+  topicWithToken(user_id: $user_id, token_id: $token_id) {
     topics {
       topic_id
       topic_name
+      token_id
       user_id
       use_yn
       created_at
