@@ -42,6 +42,7 @@ export const useMember = () => {
 		member.logout();
 		sessionStorage.removeItem('T1');
 		sessionStorage.removeItem('T2');
+		AuthInstanse().signOut();
 	};
 
 	return { error, login, logout, refresh };
