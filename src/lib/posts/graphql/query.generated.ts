@@ -16,7 +16,9 @@ function fetcher<TData, TVariables extends { [key: string]: any }>(
 			requestHeaders,
 		});
 }
-export type IPostsQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type IPostsQueryVariables = Types.Exact<{
+	page?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
 export type IPostsQuery = {
 	posts: Array<{
@@ -35,8 +37,8 @@ export type IPostsQuery = {
 };
 
 export const PostsDocument = /*#__PURE__*/ `
-    query Posts {
-  posts {
+    query Posts($page: Int) {
+  posts(page: $page) {
     member {
       user_id
       email

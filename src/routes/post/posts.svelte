@@ -1,30 +1,24 @@
 <script lang>
 	// @ts-nocheck
-	import { onMount } from 'svelte';
+	import { onMount, beforeUpdate } from 'svelte';
 	import Post from './post.svelte';
 	import { usePostsQuery } from '$lib/posts/graphql/query.generated';
 	import { GraphQLClient } from 'graphql-request';
 	import InfiniteScroll from '$lib/components/InfiniteScroll.svelte';
 	import IconLogo from '../../assets/icon/icon-logo.svelte';
 
-	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-	const postsQueryResult = usePostsQuery(gqlClient);
-	const { posts } = $postsQueryResult.data;
-
-	let page = 0;
-	let data = [];
-	// store the new batch of data here.
+	$: page = 0;
+	let gqlClient = new GraphQLClient('http://localhost:5173/graphql');
+	$: postsQueryResult = usePostsQuery(gqlClient, { page });
+	$: data = $postsQueryResult?.data?.posts || [];
 	let newBatch = [];
 
 	async function fetchData() {
-		newBatch = posts;
+		newBatch = $postsQueryResult?.data?.posts || [];
 	}
 
-	onMount(() => {
-		fetchData();
-	});
-
-	$: data = [...data, ...newBatch];
+	$: console.log('new', '🐸', data, '🔥', page);
+	$: postList = [...newBatch, ...data];
 </script>
 
 <div class="wrapper">
@@ -32,18 +26,21 @@
 		<IconLogo />
 	</div>
 	<div class="posts-container flex flex-wrap justify-center">
-		{#each data as post}
-			<Post {post} />
-		{:else}
-			<p>데이터가 없습니다.</p>
-		{/each}
-		<InfiniteScroll
-			hasMore={newBatch.length}
-			threshold={100}
-			on:loadMore={() => {
-				fetchData();
-			}}
-		/>
+		{#if postList?.length}
+			{#each postList as post}
+				<Post {post} />
+			{:else}
+				<p>데이터가 없습니다.</p>
+			{/each}
+			<InfiniteScroll
+				hasMore={true}
+				threshold={100}
+				on:loadMore={() => {
+					page++;
+					fetchData();
+				}}
+			/>
+		{/if}
 	</div>
 </div>
 

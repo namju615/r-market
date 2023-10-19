@@ -9,18 +9,22 @@ const getPagination = (page: number, size: number) => {
 
 	return { from, to };
 };
-const { from, to } = getPagination(0, 14);
 
-let posts: PostgrestSingleResponse<any[]> | { data: [] } = { data: [] };
+// let posts: PostgrestSingleResponse<any[]> | { data: [] } = { data: [] };
 
-try {
+// export default posts;
+
+export const posts = async (page: number) => {
+	let posts;
+	const { from, to } = getPagination(page, 14);
+
 	posts = await SupabaseInstanse()
 		.getClient()
 		.from('posts')
 		.select('*, member(email, name, user_id)', { count: 'exact' })
-		.range(from, to);
-} catch (error) {
-	console.log('🐸', error);
-}
+		.order('update_date', { ascending: true })
+		.range(from, to < 33 ? to : 33);
 
-export default posts;
+	// console.log(posts);
+	return posts || [];
+};
