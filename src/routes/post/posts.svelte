@@ -8,17 +8,21 @@
 	import IconLogo from '../../assets/icon/icon-logo.svelte';
 
 	$: page = 0;
-	let gqlClient = new GraphQLClient('http://localhost:5173/graphql');
+	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 	$: postsQueryResult = usePostsQuery(gqlClient, { page });
-	$: data = $postsQueryResult?.data?.posts || [];
+
 	let newBatch = [];
+	let postList = [];
+	onMount(async () => {
+		await $postsQueryResult.refetch();
+		fetchData();
+	});
 
 	async function fetchData() {
+		await $postsQueryResult.refetch();
 		newBatch = $postsQueryResult?.data?.posts || [];
 	}
-
-	$: console.log('new', '🐸', data, '🔥', page);
-	$: postList = [...newBatch, ...data];
+	$: postList = [...postList, ...newBatch];
 </script>
 
 <div class="wrapper">
@@ -35,9 +39,9 @@
 			<InfiniteScroll
 				hasMore={true}
 				threshold={100}
-				on:loadMore={() => {
-					page++;
-					fetchData();
+				on:loadMore={async () => {
+					await page++;
+					await fetchData();
 				}}
 			/>
 		{/if}
