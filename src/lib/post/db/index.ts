@@ -1,6 +1,12 @@
 import { SupabaseInstanse } from '$lib/supabase/supabaseService';
 
 // request id = 18 post data
-const post = await SupabaseInstanse().getClient().rpc('get_post').eq('id', 1);
+export const getPostInfo = async (id: number) => {
+	const postInfo = await SupabaseInstanse()
+		.getClient()
+		.from('posts')
+		.select('*, member(email, name, user_id)', { count: 'exact' })
+		.eq('post_id', id);
 
-export default post;
+	return postInfo || [];
+};

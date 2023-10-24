@@ -123,6 +123,10 @@ export interface IQueryMemberArgs {
 	uuid: Scalars['String']['input'];
 }
 
+export interface IQueryPostArgs {
+	id?: InputMaybe<Scalars['Int']['input']>;
+}
+
 export interface IQueryPostsArgs {
 	page?: InputMaybe<Scalars['Int']['input']>;
 }

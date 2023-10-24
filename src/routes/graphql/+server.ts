@@ -4,7 +4,7 @@ import { loadSchema, loadDocuments } from '@graphql-tools/load';
 import country from '$lib/country/db';
 import countries from '$lib/countries/db';
 import { member, addMember } from '$lib/auth/db';
-import post from '$lib/post/db';
+import { getPostInfo } from '$lib/post/db';
 import { posts } from '$lib/posts/db';
 
 import type { RequestEvent } from '@sveltejs/kit';
@@ -38,7 +38,10 @@ const yogaApp = createYoga<RequestEvent>({
 					const response: any = await posts(page);
 					return response.data;
 				},
-				post: () => post.data[0],
+				post: async (_, { id }: { id: number }) => {
+					const response: any = await getPostInfo(id);
+					return response.data[0];
+				},
 			},
 			Mutation: {
 				addMember: (

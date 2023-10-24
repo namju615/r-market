@@ -1,5 +1,5 @@
-query Post {
-	post {
+query Post($id: Int) {
+	post(id: $id) {
 		member {
 			user_id
 			email

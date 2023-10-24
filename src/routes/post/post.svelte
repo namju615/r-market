@@ -2,6 +2,7 @@
 	import type { Action } from 'svelte/action';
 	import IconStar from '../../assets/icon/icon-star.svelte';
 	import type { IPost } from '$lib/types';
+	import { A } from 'flowbite-svelte';
 
 	export let post: IPost | null;
 	let isFavorite = false;
@@ -17,11 +18,14 @@
 
 <div class="post-container">
 	<div class="image-container">
-		{#if post?.image_url}
-			<img src={post?.image_url} alt="" />
-		{:else}
-			<div class="image-empty" />
-		{/if}
+		<A href={`/post/${post?.post_id}`}>
+			{#if post?.image_url}
+				<img src={post?.image_url} alt="" />
+			{:else}
+				<div class="image-empty" />
+			{/if}
+		</A>
+
 		<button
 			class="favorite"
 			on:click={() => {
@@ -54,6 +58,8 @@
 		min-width: 300px;
 		max-width: 1200px;
 		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
 	}
 	.image-container {
 		position: relative;
