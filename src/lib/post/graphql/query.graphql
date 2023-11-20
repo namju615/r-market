@@ -1,11 +1,11 @@
 query Post($id: Int) {
 	post(id: $id) {
 		member {
-			user_id
+			member_id
 			email
 			name
 		}
-		user_id
+		member_id
 		title
 		hashtag
 		price

@@ -13,7 +13,7 @@
 	export let data: IGetChatMessageQuery;
 	export let room_id: number;
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-	const userId = $member?.user_id;
+	const memberId = $member?.member_id;
 	const userNm = $member?.name;
 	const profileImg = $member?.profile_image_url;
 
@@ -22,7 +22,7 @@
 	$: messages = data.getChatMessage || [];
 	const mutation = useAddChatMessageMutation(gqlClient, {
 		onSuccess: (data) => {
-			socket.emit('new_message', data.addChatMessage.contents, room_id, userNm, userId, profileImg, () => {
+			socket.emit('new_message', data.addChatMessage.contents, room_id, userNm, memberId, profileImg, () => {
 				addMessage(data.addChatMessage.contents);
 			}); // Send the message
 			socket.emit('refetch_room_list'); // refetch chat list
@@ -40,7 +40,7 @@
 					...messages,
 					{
 						room_id: room_id,
-						user_id: -1,
+						member_id: -1,
 						create_date: new Date().toString(),
 						contents: message,
 						name: 'system',
@@ -51,7 +51,7 @@
 					...messages,
 					{
 						room_id: room_id,
-						user_id: userId,
+						member_id: memberId,
 						create_date: new Date().toString(),
 						contents: message,
 						name: userNm,
@@ -82,7 +82,7 @@
 		if (!message) return;
 
 		textfield = '';
-		await $mutation.mutate({ chat: { room_id: room_id, user_id: userId, contents: message } });
+		await $mutation.mutate({ chat: { room_id: room_id, member_id: memberId, contents: message } });
 	}
 </script>
 

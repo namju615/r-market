@@ -1,5 +1,5 @@
 type Member {
-	user_id: ID
+	member_id: ID
 	email: String!
 	name: String!
 	profile_image_url: String

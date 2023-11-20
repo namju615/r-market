@@ -2,7 +2,7 @@ import { SupabaseInstanse } from '$lib/supabase/supabaseService';
 
 interface IChatMessage {
 	room_id: number;
-	user_id: number;
+	member_id: number;
 	contents: string;
 }
 

@@ -22,7 +22,7 @@ export type IMemberQueryVariables = Types.Exact<{
 
 export type IMemberQuery = {
 	member?: {
-		user_id?: string | null;
+		member_id?: int | null;
 		email: string;
 		name: string;
 		profile_image_url?: string | null;
@@ -36,7 +36,7 @@ export type IMemberQuery = {
 export const MemberDocument = /*#__PURE__*/ `
     query Member($uuid: String!) {
   member(uuid: $uuid) {
-    user_id
+    member_id
     email
     name
     profile_image_url

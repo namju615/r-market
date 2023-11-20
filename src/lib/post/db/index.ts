@@ -5,7 +5,7 @@ export const getPostInfo = async (id: number) => {
 	const postInfo = await SupabaseInstanse()
 		.getClient()
 		.from('posts')
-		.select('*, member(email, name, user_id)', { count: 'exact' })
+		.select('*, member(email, name, member_id)', { count: 'exact' })
 		.eq('post_id', id);
 
 	return postInfo || [];

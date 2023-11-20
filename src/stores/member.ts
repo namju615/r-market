@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 // interface IMemberInfo {
-// 	user_id: number;
+// 	member_id: number;
 // 	uuid: string;
 // 	email: string;
 // 	name: string;

@@ -1,11 +1,11 @@
 query Posts($page: Int) {
 	posts(page: $page) {
 		member {
-			user_id
+			member_id
 			email
 			name
 		}
-		user_id
+		member_id
 		title
 		hashtag
 		price

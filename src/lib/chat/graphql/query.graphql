@@ -1,19 +1,19 @@
 query GetChatMessage($room_id: Int) {
 	getChatMessage(id: $room_id) {
 		room_id
-		user_id
+		member_id
 		name
 		user_image
 		contents
 		create_date
 	}
 }
-query GetRoomList($user_id: Int) {
-	getRoomList(id: $user_id) {
+query GetRoomList($member_id: Int) {
+	getRoomList(id: $member_id) {
 		room_id
 		user_list {
 			name
-			user_id
+			member_id
 			user_image
 		}
 		post_id

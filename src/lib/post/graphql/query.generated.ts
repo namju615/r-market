@@ -22,7 +22,7 @@ export type IPostQueryVariables = Types.Exact<{
 
 export type IPostQuery = {
 	post?: {
-		user_id: number;
+		member_id: number;
 		title: string;
 		hashtag: string;
 		price: number;
@@ -32,7 +32,7 @@ export type IPostQuery = {
 		update_date: string;
 		post_id: number;
 		view_count: number;
-		member: { user_id?: string | null; email: string; name: string };
+		member: { member_id?: string | null; email: string; name: string };
 	} | null;
 };
 
@@ -40,11 +40,11 @@ export const PostDocument = /*#__PURE__*/ `
     query Post($id: Int) {
   post(id: $id) {
     member {
-      user_id
+      member_id
       email
       name
     }
-    user_id
+    member_id
     title
     hashtag
     price

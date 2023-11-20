@@ -1,6 +1,6 @@
 type Post {
 	member: Member!
-	user_id: Int!
+	member_id: Int!
 	title: String!
 	hashtag: String!
 	price: Int!

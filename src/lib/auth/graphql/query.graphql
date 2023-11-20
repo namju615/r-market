@@ -1,6 +1,6 @@
 query Member($uuid: String!) {
 	member(uuid: $uuid) {
-		user_id
+		member_id
 		email
 		name
 		profile_image_url

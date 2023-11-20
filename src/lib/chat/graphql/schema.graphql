@@ -1,6 +1,6 @@
 type GetChatMessage {
 	room_id: Int!
-	user_id: Int!
+	member_id: Int!
 	name: String!
 	user_image: String
 	contents: String!
@@ -9,7 +9,7 @@ type GetChatMessage {
 
 type UserList {
 	name: String!
-	user_id: Int!
+	member_id: Int!
 	user_image: String
 }
 
@@ -25,13 +25,13 @@ type GetRoomList {
 
 input ChatMessageForm {
 	room_id: Int!
-	user_id: Int!
+	member_id: Int!
 	contents: String!
 }
 
 type ChatMessage {
 	room_id: Int!
-	user_id: Int!
+	member_id: Int!
 	message_id: Int!
 	contents: String!
 	create_date: String!

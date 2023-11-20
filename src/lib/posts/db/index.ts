@@ -21,7 +21,7 @@ export const posts = async (page: number) => {
 	posts = await SupabaseInstanse()
 		.getClient()
 		.from('posts')
-		.select('*, member(email, name, user_id)', { count: 'exact' })
+		.select('*, member(email, name, member_id)', { count: 'exact' })
 		.order('update_date', { ascending: true })
 		.range(from, to < 33 ? to : 33);
 

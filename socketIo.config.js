@@ -11,10 +11,10 @@ export default function injectSocketIO(server) {
 		socket.on('exit_room', (room_id) => {
 			socket.to(room_id).emit('bye');
 		});
-		socket.on('new_message', (message, room_id, name, user_id, user_image, done) => {
+		socket.on('new_message', (message, room_id, name, member_id, user_image, done) => {
 			socket.to(room_id).emit('new_message', {
 				room_id,
-				user_id,
+				member_id,
 				name,
 				user_image,
 				contents: message,

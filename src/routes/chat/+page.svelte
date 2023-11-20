@@ -12,10 +12,10 @@
 	export let data: PageData;
 	let activeRoomId: number | undefined = undefined;
 	let isOpen = true;
-	$: user_id = $member?.user_id;
+	$: member_id = $member?.member_id;
 
 	const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
-	$: chatListResult = useGetRoomListQuery(gqlClient, { user_id }, { enabled: !!user_id });
+	$: chatListResult = useGetRoomListQuery(gqlClient, { member_id }, { enabled: !!member_id });
 	$: chatMessageResult = useGetChatMessageQuery(
 		gqlClient,
 		{ room_id: Number(activeRoomId) },

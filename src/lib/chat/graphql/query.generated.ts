@@ -23,7 +23,7 @@ export type IGetChatMessageQueryVariables = Types.Exact<{
 export type IGetChatMessageQuery = {
 	getChatMessage?: Array<{
 		room_id: number;
-		user_id: number;
+		member_id: number;
 		name: string;
 		user_image?: string | null;
 		contents: string;
@@ -32,7 +32,7 @@ export type IGetChatMessageQuery = {
 };
 
 export type IGetRoomListQueryVariables = Types.Exact<{
-	user_id?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+	member_id?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 export type IGetRoomListQuery = {
@@ -43,7 +43,7 @@ export type IGetRoomListQuery = {
 		product_image?: string | null;
 		last_message_date?: string | null;
 		last_message?: string | null;
-		user_list: Array<{ name: string; user_id: number; user_image?: string | null }>;
+		user_list: Array<{ name: string; member_id: number; user_image?: string | null }>;
 	} | null> | null;
 };
 
@@ -51,7 +51,7 @@ export const GetChatMessageDocument = /*#__PURE__*/ `
     query GetChatMessage($room_id: Int) {
   getChatMessage(id: $room_id) {
     room_id
-    user_id
+    member_id
     name
     user_image
     contents
@@ -79,12 +79,12 @@ useGetChatMessageQuery.fetcher = (
 	headers?: RequestInit['headers'],
 ) => fetcher<IGetChatMessageQuery, IGetChatMessageQueryVariables>(client, GetChatMessageDocument, variables, headers);
 export const GetRoomListDocument = /*#__PURE__*/ `
-    query GetRoomList($user_id: Int) {
-  getRoomList(id: $user_id) {
+    query GetRoomList($member_id: Int) {
+  getRoomList(id: $member_id) {
     room_id
     user_list {
       name
-      user_id
+      member_id
       user_image
     }
     post_id

@@ -19,13 +19,13 @@ export interface IChatMessage {
 	create_date: Scalars['String']['output'];
 	message_id: Scalars['Int']['output'];
 	room_id: Scalars['Int']['output'];
-	user_id: Scalars['Int']['output'];
+	member_id: Scalars['Int']['output'];
 }
 
 export interface IChatMessageForm {
 	contents: Scalars['String']['input'];
 	room_id: Scalars['Int']['input'];
-	user_id: Scalars['Int']['input'];
+	member_id: Scalars['Int']['input'];
 }
 
 export interface ICountry {
@@ -42,7 +42,7 @@ export interface IGetChatMessage {
 	create_date: Scalars['String']['output'];
 	name: Scalars['String']['output'];
 	room_id: Scalars['Int']['output'];
-	user_id: Scalars['Int']['output'];
+	member_id: Scalars['Int']['output'];
 	user_image?: Maybe<Scalars['String']['output']>;
 }
 
@@ -63,7 +63,7 @@ export interface IMember {
 	notification_flag?: Maybe<Scalars['Boolean']['output']>;
 	profile_image_url?: Maybe<Scalars['String']['output']>;
 	score?: Maybe<Scalars['Int']['output']>;
-	user_id?: Maybe<Scalars['ID']['output']>;
+	member_id?: Maybe<Scalars['ID']['output']>;
 	uuid?: Maybe<Scalars['String']['output']>;
 }
 
@@ -97,7 +97,7 @@ export interface IPost {
 	status: Scalars['String']['output'];
 	title: Scalars['String']['output'];
 	update_date: Scalars['String']['output'];
-	user_id: Scalars['Int']['output'];
+	member_id: Scalars['Int']['output'];
 	view_count: Scalars['Int']['output'];
 }
 
@@ -133,6 +133,6 @@ export interface IQueryPostsArgs {
 
 export interface IUserList {
 	name: Scalars['String']['output'];
-	user_id: Scalars['Int']['output'];
+	member_id: Scalars['Int']['output'];
 	user_image?: Maybe<Scalars['String']['output']>;
 }

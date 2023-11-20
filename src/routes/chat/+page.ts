@@ -9,7 +9,7 @@ import type { PageLoad } from './$types';
 export const load = (async ({ route }) => {
 	// const gqlClient = new GraphQLClient('http://localhost:5173/graphql');
 
-	// await queryClient.prefetchQuery(useGetRoomListQuery.getKey(), useGetRoomListQuery.fetcher(gqlClient, { user_id: 1 }));
+	// await queryClient.prefetchQuery(useGetRoomListQuery.getKey(), useGetRoomListQuery.fetcher(gqlClient, { member_id: 1 }));
 
 	if (route.id === '/chat') {
 		return {

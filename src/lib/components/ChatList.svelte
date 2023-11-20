@@ -9,12 +9,12 @@
 
 	const MY_USER_ID = 1;
 
-	const getRoomImage = (user_list: Array<{ name: string; user_id: number; user_image?: string | null }>) => {
+	const getRoomImage = (user_list: Array<{ name: string; member_id: number; user_image?: string | null }>) => {
 		if (user_list.length > 2) {
 			return user_list.slice(0, 4).map((user) => ({ src: user.user_image ?? '/profile.jpeg', alt: user.name }));
 		} else if (user_list.length > 1) {
 			return user_list
-				.filter((v) => v.user_id !== MY_USER_ID)
+				.filter((v) => v.member_id !== MY_USER_ID)
 				.map((user) => ({ src: user.user_image ?? '/profile.jpeg', alt: user.name }));
 		}
 	};

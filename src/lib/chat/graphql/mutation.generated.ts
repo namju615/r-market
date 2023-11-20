@@ -21,14 +21,14 @@ export type IAddChatMessageMutationVariables = Types.Exact<{
 }>;
 
 export type IAddChatMessageMutation = {
-	addChatMessage: { room_id: number; user_id: number; message_id: number; contents: string; create_date: string };
+	addChatMessage: { room_id: number; member_id: number; message_id: number; contents: string; create_date: string };
 };
 
 export const AddChatMessageDocument = /*#__PURE__*/ `
     mutation AddChatMessage($chat: ChatMessageForm!) {
   addChatMessage(chat: $chat) {
     room_id
-    user_id
+    member_id
     message_id
     contents
     create_date
